@@ -1,27 +1,17 @@
 package ru.vasic2000.rgb_circles;
 
-public class MainCircle {
+public class MainCircle extends SimpleCircle {
     public static final int INT_RADIUS = 50;
-    private int x;
-    private int y;
-    private int radius;
+    public static final double MAIN_SPEED = 30;
 
     public MainCircle(int x, int y) {
-        this.x = x;
-        this.y = y;
-        this.radius = INT_RADIUS;    }
-
-
-    public int getX() {
-        return x;
+        super(x, y, INT_RADIUS);
     }
 
-    public int getY() {
-        return y;
+    public void mobeMainCirsleWhenTuchAt(int x1, int y1) {
+        int dx = (int) ((x1 - x) * MAIN_SPEED / GameManager.getWidth());
+        int dy = (int) ((y1 - y) * MAIN_SPEED / GameManager.getHeight());
+        x += dx;
+        y += dy;
     }
-
-    public int getRadius() {
-        return radius;
-    }
-
 }
