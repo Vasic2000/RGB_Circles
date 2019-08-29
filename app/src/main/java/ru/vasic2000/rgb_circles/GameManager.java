@@ -32,16 +32,29 @@ public class GameManager {
     }
 
     private void initEnemyCircles() {
+        SimpleCircle mainCircleArea = mainCircle.getCircleArea();
         circles = new ArrayList<>();
 
         for (int i = 0; i < MAX_CIRCLES; i++) {
-            circles.add(EnemyCircle.getRandomCircle());
+            EnemyCircle circle;
+            do {
+                circle = EnemyCircle.getRandomCircle();
+            }
+            while (circle.isIntersect(mainCircleArea));
+            circles.add(circle);
+        }
+        calculateAndSetCirclesColor();
+    }
+
+    private void calculateAndSetCirclesColor() {
+        for (EnemyCircle circle : circles) {
+            circle.setEnemyOfFoodColorDependensOn(mainCircle);
         }
     }
 
     public void onDraw() {
         canvasView.drawCircle(mainCircle);
-        for(EnemyCircle circle : circles) {
+        for (EnemyCircle circle : circles) {
             canvasView.drawCircle(circle);
         }
     }
