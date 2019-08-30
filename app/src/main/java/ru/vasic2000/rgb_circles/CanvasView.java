@@ -49,6 +49,11 @@ public class CanvasView extends View implements ICanvasView {
         canvas.drawCircle(circle.getX(), circle.getY(), circle.getRadius(), paint);
     }
 
+    @Override
+    public void redraw() {
+        invalidate();
+    }
+
     private void initPaint() {
         paint = new Paint();
         paint.setAntiAlias(true);

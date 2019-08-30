@@ -60,6 +60,43 @@ public class GameManager {
     }
 
     public void onTuchEvent(int x, int y) {
-        mainCircle.mobeMainCirsleWhenTuchAt(x, y);
+        mainCircle.moveMainCirsleWhenTuchAt(x, y);
+        checkCollision();
+        moveCircles();
+    }
+
+    private void checkCollision() {
+        SimpleCircle circleForDel = null;
+        for (EnemyCircle circle : circles) {
+            if (mainCircle.isIntersect(circle)) {
+                if (circle.isSmallerThan(mainCircle)) {
+                    mainCircle.growRadius(circle);
+                    circleForDel = circle;
+                    calculateAndSetCirclesColor();
+                    break;
+                } else {
+                    gameEnd();
+                    return;
+                }
+            }
+        }
+        if (circleForDel != null) {
+            circles.remove(circleForDel);
+        }
+        if (circles.isEmpty()) {
+            gameEnd();
+        }
+    }
+
+    private void gameEnd() {
+        mainCircle.initRadius();
+        initEnemyCircles();
+        canvasView.redraw();
+    }
+
+    private void moveCircles() {
+        for (EnemyCircle circle : circles) {
+            circle.moveOneStep();
+        }
     }
 }

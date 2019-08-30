@@ -12,10 +12,20 @@ public class MainCircle extends SimpleCircle {
         setColor(OUR_COLOR);
     }
 
-    public void mobeMainCirsleWhenTuchAt(int x1, int y1) {
+    public void moveMainCirsleWhenTuchAt(int x1, int y1) {
         int dx = (int) ((x1 - x) * MAIN_SPEED / GameManager.getWidth());
         int dy = (int) ((y1 - y) * MAIN_SPEED / GameManager.getHeight());
         x += dx;
         y += dy;
+    }
+
+    public void initRadius() {
+        radius = INT_RADIUS;
+    }
+
+    public void growRadius(SimpleCircle circle) {
+        // Pi * newR^2 == Pi * R^2 + Pi * R_eated^2
+        //newR = sqrt(R^2 + R_eated^2)
+        radius = (int) Math.sqrt(Math.pow(radius, 2) + (Math.pow(circle.radius, 2)));
     }
 }
